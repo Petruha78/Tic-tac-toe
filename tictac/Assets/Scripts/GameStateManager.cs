@@ -43,16 +43,16 @@ public class GameStateManager :GameElement
         return false;
     }
 
-    public bool CheckStandOff(Component[] images, Player current)
+    public bool CheckStandOff(int[] map, Player current)
     {
-        if (IsStandOff(images[0].gameObject.GetComponentInChildren<Image>(), images[1].gameObject.GetComponentInChildren<Image>(), images[2].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[3].gameObject.GetComponentInChildren<Image>(), images[4].gameObject.GetComponentInChildren<Image>(), images[5].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[6].gameObject.GetComponentInChildren<Image>(), images[7].gameObject.GetComponentInChildren<Image>(), images[8].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[0].gameObject.GetComponentInChildren<Image>(), images[3].gameObject.GetComponentInChildren<Image>(), images[6].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[1].gameObject.GetComponentInChildren<Image>(), images[4].gameObject.GetComponentInChildren<Image>(), images[7].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[2].gameObject.GetComponentInChildren<Image>(), images[5].gameObject.GetComponentInChildren<Image>(), images[8].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[0].gameObject.GetComponentInChildren<Image>(), images[4].gameObject.GetComponentInChildren<Image>(), images[8].gameObject.GetComponentInChildren<Image>(), current) &&
-            IsStandOff(images[2].gameObject.GetComponentInChildren<Image>(), images[4].gameObject.GetComponentInChildren<Image>(), images[6].gameObject.GetComponentInChildren<Image>(), current))
+        if (IsStandOff(map[0], map[1], map[2], current) &&
+            IsStandOff(map[3], map[4], map[5], current) &&
+            IsStandOff(map[6], map[7], map[8], current) &&
+            IsStandOff(map[0], map[3], map[6], current) &&
+            IsStandOff(map[1], map[4], map[7], current) &&
+            IsStandOff(map[2], map[5], map[8], current) &&
+            IsStandOff(map[0], map[4], map[8], current) &&
+            IsStandOff(map[2], map[4], map[6], current))
         {
             return true;
             
@@ -60,19 +60,19 @@ public class GameStateManager :GameElement
         return false;
     }
 
-    bool IsStandOff(Image image1, Image image2, Image image3, Player current)
+    bool IsStandOff(int image1, int image2, int image3, Player current)
     {
 
-        if (image1.sprite != image2.sprite && image2.sprite != image3.sprite && image2.sprite != null ||
-            image1.sprite != image2.sprite && image1.sprite == image3.sprite && image1.sprite != null && image2.sprite != null ||
-            image1.sprite == image2.sprite && image1.sprite != image3.sprite && image3.sprite != null ||
-            image1.sprite != image2.sprite && image1.sprite != image3.sprite && image1.sprite != null ||
-            (image1.sprite == image2.sprite && image3.sprite == null && current.figure != image1.sprite ||
-            image1.sprite == null && image2.sprite == image3.sprite && current.figure != image2.sprite ||
-            image2.sprite == null && image1.sprite == image3.sprite && current.figure != image1.sprite ||
-            image1.sprite == null && image3.sprite == null && current.figure != image2.sprite ||
-            image1.sprite == null && image2.sprite == null && current.figure != image3.sprite ||
-            image2.sprite == null && image3.sprite == null && current.figure != image1.sprite) &&
+        if (image1 != image2 && image2 != image3 && image2 != 0 ||
+            image1 != image2 && image1 == image3 && image1 != 0 && image2 != 0 ||
+            image1 == image2 && image1 != image3 && image3 != 0 ||
+            image1 != image2 && image1 != image3 && image1 != 0 ||
+            (image1 == image2 && image3 == 0 && current.id != image1 ||
+            image1 == 0 && image2 == image3 && current.id != image2 ||
+            image2 == 0 && image1 == image3 && current.id != image1 ||
+            image1 == 0 && image3 == 0 && current.id != image2 ||
+            image1 == 0 && image2 == 0 && current.id != image3 ||
+            image2 == 0 && image3 == 0 && current.id != image1) &&
             Field.TurnCounter > 7)
         {
 

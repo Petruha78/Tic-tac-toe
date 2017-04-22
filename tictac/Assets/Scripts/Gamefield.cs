@@ -168,7 +168,7 @@ public class Gamefield : GameElement {
         }
 
         isWin = GameState.CheckWin(turns);
-        isStandOff = GameState.CheckStandOff(Images,current);
+        isStandOff = GameState.CheckStandOff(turns,current);
 
         if (isWin == true)
         {
